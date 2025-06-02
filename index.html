@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>皇位継承に関する問題と日本の皇室制度</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for connecting lines in diagrams if needed */
+        .timeline-line {
+            position: absolute;
+            left: 200px; /* Adjust as per HistoricalTab's timeline */
+            top: 40px;   /* Adjust as per HistoricalTab's timeline */
+            height: calc(100% - 40px); /* Adjust as per HistoricalTab's timeline */
+            width: 2px;
+            background-color: #9ca3af; /* gray-400 */
+        }
+        .tree-line-vertical { /* Parent to child connector line */
+            position: absolute;
+            top: 100%; /* Starts from the bottom of the parent's content box */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px; /* w-0.5 */
+            background-color: #9ca3af; /* gray-400 */
+        }
+        .tree-line-horizontal {
+            position: absolute;
+            top: 0;
+            height: 2px; /* h-0.5 */
+            background-color: #9ca3af; /* gray-400 */
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* Ensure consistent node sizes */
+        .royal-node {
+            min-width: 120px; /* Adjust as needed for consistent sizing */
+            padding: 0.75rem; /* p-3 */
+        }
+        .royal-node-sm { /* For children nodes in the last row */
+            min-width: 110px;
+            padding: 0.5rem; /* p-2 */
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center p-4 bg-gray-50 min-h-screen font-[Inter,sans-serif]">
+
+    <h1 class="text-3xl font-bold text-center mb-2 text-gray-800">皇位継承に関する問題と日本の皇室制度</h1>
+    <h2 class="text-sm font-medium text-center mb-8 text-gray-600">一般社団法人日本みらい研作成</h2>
+
+    <div class="w-full max-w-5xl mb-8">
+        <div class="flex flex-wrap border-b border-gray-200 bg-white rounded-t-lg shadow-sm">
+            <button id="tab-btn-overview" class="tab-button flex items-center px-4 md:px-6 py-3 font-medium text-sm transition-colors duration-200 border-b-2 border-blue-500 text-blue-600 bg-blue-50" onclick="activateTab('overview')">
+                <span class="mr-2">⚖️</span>
+                皇位継承問題の概要
+            </button>
+            <button id="tab-btn-modern" class="tab-button flex items-center px-4 md:px-6 py-3 font-medium text-sm transition-colors duration-200 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50" onclick="activateTab('modern')">
+                <span class="mr-2">👑</span>
+                現代の皇室系統
+            </button>
+            <button id="tab-btn-historical" class="tab-button flex items-center px-4 md:px-6 py-3 font-medium text-sm transition-colors duration-200 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50" onclick="activateTab('historical')">
+                <span class="mr-2">📜</span>
+                皇統の歴史
+            </button>
+            <button id="tab-btn-parliamentary" class="tab-button flex items-center px-4 md:px-6 py-3 font-medium text-sm transition-colors duration-200 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50" onclick="activateTab('parliamentary')">
+                <span class="mr-2">🏛️</span>
+                国会での議論
+            </button>
+            <button id="tab-btn-public" class="tab-button flex items-center px-4 md:px-6 py-3 font-medium text-sm transition-colors duration-200 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50" onclick="activateTab('public')">
+                <span class="mr-2">🌍</span>
+                世論と国際比較
+            </button>
+        </div>
+    </div>
+
+    <div class="w-full max-w-5xl">
+        <div id="tab-content-overview" class="tab-content active space-y-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">現状と課題</h2>
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-lg mb-2">現在の皇位継承順位</h3>
+                        <div class="relative">
+                            <div class="absolute left-4 top-0 h-full w-0.5 bg-gray-300"></div>
+                            <div class="relative pl-10 pb-6">
+                                <div class="absolute left-2 top-2 w-6 h-6 rounded-full bg-blue-600"></div>
+                                <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                                    <div class="font-semibold">徳仁天皇</div>
+                                    <div class="text-sm text-gray-600">現天皇</div>
+                                    <div class="text-sm text-gray-500">年齢: 64歳</div>
+                                    <div class="text-xs text-gray-400">第126代天皇（令和）</div>
+                                </div>
+                            </div>
+                            <div class="relative pl-10 pb-6">
+                                <div class="absolute left-2 top-2 w-6 h-6 rounded-full bg-blue-600"></div>
+                                <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                                    <div class="font-semibold">秋篠宮文仁親王</div>
+                                    <div class="text-sm text-gray-600">皇位継承第1位</div>
+                                    <div class="text-sm text-gray-500">年齢: 58歳</div>
+                                    <div class="text-xs text-gray-400">皇嗣</div>
+                                </div>
+                            </div>
+                            <div class="relative pl-10 pb-6">
+                                <div class="absolute left-2 top-2 w-6 h-6 rounded-full bg-blue-600"></div>
+                                <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                                    <div class="font-semibold">悠仁親王</div>
+                                    <div class="text-sm text-gray-600">皇位継承第2位</div>
+                                    <div class="text-sm text-gray-500">年齢: 17歳</div>
+                                    <div class="text-xs text-gray-400">秋篠宮家の長男</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-lg mb-2">主な課題</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-5 h-5 rounded-full bg-red-500 flex items-center justify-center text-white text-xs mr-2 mt-0.5">!</span>
+                                <span>皇位継承資格者が3名のみである。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-5 h-5 rounded-full bg-red-500 flex items-center justify-center text-white text-xs mr-2 mt-0.5">!</span>
+                                <span>悠仁親王以降の男系男子継承者が不在である。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-5 h-5 rounded-full bg-red-500 flex items-center justify-center text-white text-xs mr-2 mt-0.5">!</span>
+                                <span>皇族数が減少している（女性皇族は結婚で皇籍離脱するため）。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-5 h-5 rounded-full bg-red-500 flex items-center justify-center text-white text-xs mr-2 mt-0.5">!</span>
+                                <span>皇室典範では養子が禁止されている。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center text-white text-xs mr-2 mt-0.5">?</span>
+                                <span>皇室会議や摂政制度は複数の皇族の存在が前提である。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">検討されている解決策</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border rounded-lg bg-gray-50 overflow-hidden">
+                        <div class="bg-blue-700 text-white p-3 font-semibold">女性皇族の婚姻後の皇族身分保持（第一案）</div>
+                        <div class="p-4">
+                            <div class="mb-3">
+                                <h4 class="text-green-700 font-medium mb-1">メリット</h4>
+                                <ul class="pl-5 list-disc text-sm">
+                                    <li>皇族数の確保に即効性がある。</li>
+                                    <li>国民の理解を得やすい。</li>
+                                    <li>皇室の歴史と整合的である。</li>
+                                    <li>喫緊の課題への対応となる。</li>
+                                </ul>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="text-red-700 font-medium mb-1">課題・懸念</h4>
+                                <ul class="pl-5 list-disc text-sm">
+                                    <li>配偶者・子の身分に課題がある。</li>
+                                    <li>同一家庭内に皇族と国民が混在する。</li>
+                                    <li>憲法上の疑義がある。</li>
+                                    <li>皇族費が増大する。</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded font-medium">支持</span><span class="ml-1">自民党、維新、日本保守党、NHK党</span></div>
+                                <div><span class="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-medium">慎重</span><span class="ml-1">立憲民主党、れいわ、社民党</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg bg-gray-50 overflow-hidden">
+                        <div class="bg-blue-700 text-white p-3 font-semibold">旧皇族の男系男子の養子縁組・皇籍復帰（第二案）</div>
+                        <div class="p-4">
+                            <div class="mb-3">
+                                <h4 class="text-green-700 font-medium mb-1">メリット</h4>
+                                <ul class="pl-5 list-disc text-sm">
+                                    <li>男系による皇位継承が維持できる。</li>
+                                    <li>皇室の歴史と整合的である。</li>
+                                    <li>安定的な法制度が期待できる。</li>
+                                    <li>皇族数が確保できる。</li>
+                                </ul>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="text-red-700 font-medium mb-1">課題・懸念</h4>
+                                <ul class="pl-5 list-disc text-sm">
+                                    <li>皇室典範が養子を明確に禁じた経緯がある。</li>
+                                    <li>皇室が肥大化する。</li>
+                                    <li>費用が増大する。</li>
+                                    <li>恣意的な運用の懸念がある。</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded font-medium">支持</span><span class="ml-1">自民党、維新、NHK党、参政党、日本保守党</span></div>
+                                <div><span class="bg-red-100 text-red-800 px-2 py-0.5 rounded font-medium">反対</span><span class="ml-1">共産党、社民党、れいわ</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg bg-gray-50 overflow-hidden">
+                        <div class="bg-blue-700 text-white p-3 font-semibold">准皇族制度の創設</div>
+                        <div class="p-4">
+                            <div class="mb-3">
+                                <h4 class="text-green-700 font-medium mb-1">メリット</h4>
+                                <ul class="pl-5 list-disc text-sm">
+                                    <li>女性皇族の配偶者に特別な地位を与える。</li>
+                                    <li>皇族に準じた待遇を付与する。</li>
+                                    <li>歴史的な先例がある（准三宮、准三后）。</li>
+                                    <li>現行憲法枠内での模索である。</li>
+                                </ul>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="text-red-700 font-medium mb-1">課題・懸念</h4>
+                                <ul class="pl-5 list-disc text-sm">
+                                    <li>新たな身分創設の是非が問われる。</li>
+                                    <li>法的地位の定義が複雑である。</li>
+                                    <li>国民の理解が必要である。</li>
+                                    <li>敬称の問題がある。</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded font-medium">支持</span><span class="ml-1">NHK党、有志の会</span></div>
+                                <div><span class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded font-medium">検討中</span><span class="ml-1">一部の政党で議論中</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg bg-gray-50 overflow-hidden">
+                        <div class="bg-blue-700 text-white p-3 font-semibold">女性天皇・女系天皇の容認</div>
+                        <div class="p-4">
+                            <div class="mb-3">
+                                <h4 class="text-green-700 font-medium mb-1">メリット</h4>
+                                <ul class="pl-5 list-disc text-sm">
+                                    <li>皇位継承者の安定的確保ができる。</li>
+                                    <li>女性差別撤廃条約との整合性がある。</li>
+                                    <li>世論の支持がある。</li>
+                                    <li>根本的解決策となる。</li>
+                                </ul>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="text-red-700 font-medium mb-1">課題・懸念</h4>
+                                <ul class="pl-5 list-disc text-sm">
+                                    <li>歴史的な大転換である。</li>
+                                    <li>男系継承の2000年の伝統変更となる。</li>
+                                    <li>性急な結論を避けるべきである。</li>
+                                    <li>皇統の連続性への懸念がある。</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded font-medium">支持</span><span class="ml-1">立憲民主党、共産党</span></div>
+                                <div><span class="bg-red-100 text-red-800 px-2 py-0.5 rounded font-medium">反対</span><span class="ml-1">自民党、維新、参政党</span></div>
+                                <div><span class="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-medium">慎重</span><span class="ml-1">一部政党は慎重検討</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">全政党の立場比較</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="text-left p-2 border font-medium">政党</th>
+                                <th class="text-left p-2 border font-medium">皇位継承の考え方</th>
+                                <th class="text-left p-2 border font-medium">女性皇族身分保持</th>
+                                <th class="text-left p-2 border font-medium">旧皇族復帰・養子縁組</th>
+                                <th class="text-left p-2 border font-medium">女性/女系天皇</th>
+                                <th class="text-left p-2 border font-medium">その他特徴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-gray-50">
+                                <td class="p-2 border font-medium text-sm">自由民主党</td>
+                                <td class="p-2 border">今上陛下→秋篠宮→悠仁親王の流れを維持する。</td>
+                                <td class="p-2 border">賛成である。</td>
+                                <td class="p-2 border">有識者会議報告書の考え方を基本的に尊重する。</td>
+                                <td class="p-2 border">悠仁親王以降の継承は今後の課題である。</td>
+                                <td class="p-2 border">速やかな合意とその実行に全力を尽くす責務がある。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-2 border font-medium text-sm">立憲民主党</td>
+                                <td class="p-2 border">悠仁親王までの継承順位は維持するが、男系男子原則には留保する。</td>
+                                <td class="p-2 border">配偶者・子の身分に憲法上の疑義がある。</td>
+                                <td class="p-2 border">慎重（問題が多いとの立場）である。</td>
+                                <td class="p-2 border">女性宮家設立、女系天皇まで視野に入れる。</td>
+                                <td class="p-2 border">有識者会議報告書は附帯決議に十分応えていない。</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-2 border font-medium text-sm">日本維新の会</td>
+                                <td class="p-2 border">皇位継承の流れを変えない。</td>
+                                <td class="p-2 border">賛成（皇室制度を支える）である。</td>
+                                <td class="p-2 border">旧皇族の養子縁組（第二案）を高く評価する。</td>
+                                <td class="p-2 border">別の議論として検討する。</td>
+                                <td class="p-2 border">議論の内容で合意後、法的措置を検討する。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-2 border font-medium text-sm">日本共産党</td>
+                                <td class="p-2 border">男系男子限定に合理的理由はない。</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">反対（恣意的運用、皇室肥大化、費用増大の懸念）である。</td>
+                                <td class="p-2 border">女性天皇も女系天皇も認めるべきである。</td>
+                                <td class="p-2 border">憲法の条項と精神に基づいて議論すべきである。</td>
+                            </tr>
+                             <tr class="bg-gray-50">
+                                <td class="p-2 border font-medium text-sm">れいわ新選組</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">配偶者・子の身分に問題点を指摘する。</td>
+                                <td class="p-2 border">反対論に言及する。</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">今国会での優先議論に疑問、経済再生や震災復興を優先すべきである。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-2 border font-medium text-sm">NHK党</td>
+                                <td class="p-2 border">今上陛下→悠仁親王の流れを維持する。</td>
+                                <td class="p-2 border">配偶者・子は皇族の身分を持たないのが適切である。</td>
+                                <td class="p-2 border">賛成である。</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">「准皇族」は積極的に創設主張ではないが賛成である。</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-2 border font-medium text-sm">参政党</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">旧11宮家の復帰が望ましい。</td>
+                                <td class="p-2 border">女性天皇は排除不要、女系は避けるべきである。</td>
+                                <td class="p-2 border">立法府の総意→皇室の判断→国民の支持が適切である。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-2 border font-medium text-sm">社会民主党</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">配偶者・子の身分に問題点を指摘する。</td>
+                                <td class="p-2 border">反対（養子禁止の経緯、皇室肥大化、費用増大）である。</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">安定的な皇位継承を確保するための方策は検討すべき課題である。</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-2 border font-medium text-sm">日本保守党</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">賛成（皇室制度を支える）である。</td>
+                                <td class="p-2 border">早期決定を要望する。</td>
+                                <td class="p-2 border">別の議論として認識する。</td>
+                                <td class="p-2 border">少数会派の発言時間確保を課題視する。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-2 border font-medium text-sm">有志の会</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">配偶者・子は原則として皇族身分不要である。</td>
+                                <td class="p-2 border">内親王・女王の配偶者となる場合に限定する。</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">准皇族という位置づけに言及、女系に流れないようにすべきである。</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-2 border font-medium text-sm">教育無償化を実現する会</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">皇族の意思・意向の最大限尊重を強調する。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-2 border font-medium text-sm">国民民主党</td>
+                                <td class="p-2 border">詳細言及なし。</td>
+                                <td class="p-2 border">詳細言及なし。</td>
+                                <td class="p-2 border">詳細言及なし。</td>
+                                <td class="p-2 border">詳細言及なし。</td>
+                                <td class="p-2 border">有識者会議報告に基づく論点整理は妥当との立場である。</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-2 border font-medium text-sm">公明党</td>
+                                <td class="p-2 border">詳細言及なし。</td>
+                                <td class="p-2 border">全体的な趨勢として肯定的である。</td>
+                                <td class="p-2 border">全体的な趨勢として肯定的である。</td>
+                                <td class="p-2 border">詳細言及なし。</td>
+                                <td class="p-2 border">野党第一党と自民党・公明党との間で一致点を見出すべきである。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">国会における今後の展望</h2>
+                <div class="space-y-4">
+                    <p>国会では各党・各会派から多様な意見が出されており、立法府としての総意をまとめる方向で議論が進められている。以下の点で議論が収束しつつある。</p>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h3 class="font-semibold text-lg mb-2">現時点での共通認識</h3>
+                        <ul class="space-y-2 pl-5 list-disc">
+                            <li>現在の皇位継承の流れ（徳仁天皇→秋篠宮殿下→悠仁親王）は維持すべきである。</li>
+                            <li>皇族数の減少は喫緊の課題であり、対応が必要である。</li>
+                            <li>皇位継承問題と皇族数確保は切り離して議論すべきである。</li>
+                            <li>静謐な環境での丁寧な議論が必要である。</li>
+                            <li>国民世論を踏まえた丁寧な議論が必要である。</li>
+                        </ul>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                        <h3 class="font-semibold text-lg mb-2">優先的に検討されている方策</h3>
+                        <ol class="space-y-2 pl-5 list-decimal">
+                            <li><strong>女性皇族の婚姻後の皇族身分保持</strong> - 配偶者・子の身分をどうするかが課題である。</li>
+                            <li><strong>旧皇族の男系男子の皇籍復帰または養子縁組</strong> - 条件や範囲が議論の焦点である。</li>
+                            <li><strong>准皇族制度の検討</strong> - 新たな身分の法的位置づけの検討が必要である。</li>
+                        </ol>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h3 class="font-semibold text-lg mb-2">議論の進め方</h3>
+                        <ul class="space-y-2 pl-5 list-disc">
+                            <li>全体会議を複数回開催後、各党各会派から個別に意見を丁寧に聴取する。</li>
+                            <li>議長や副議長による各党各会派との意見交換と調整を行う。</li>
+                            <li>国会閉会後も意見聴取を継続する。</li>
+                            <li>可能な限り早急に意見をまとめたいとの意向がある。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-content-modern" class="tab-content space-y-8">
+             <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">宮家の変遷と現在の皇族</h2>
+                <div class="space-y-4">
+                    <p>皇室の宮家は歴史的に皇統の備えとして機能してきた。特に明治以降は皇室制度の近代化に伴い、宮家の体系が整備された。現代の皇族制度は1947年の皇室典範制定により大きく変化し、多くの宮家が皇籍を離れることとなった。</p>
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                        <h3 class="font-semibold text-lg mb-2">宮家の歴史的区分</h3>
+                        <ul class="space-y-2 pl-5 list-disc">
+                            <li><strong>四世襲親王家</strong>：有栖川宮、桂宮、閑院宮、伏見宮</li>
+                            <li><strong>邦家親王系宮家</strong>：明治期に創設された宮家群</li>
+                            <li><strong>昭和期の皇族</strong>：三笠宮、高松宮、秩父宮など</li>
+                            <li><strong>現在の皇族</strong>：天皇家、秋篠宮家、常陸宮家</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 overflow-auto">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">明治以降の宮家と現在の皇族</h2>
+                <div class="min-w-[1200px] mb-8">
+                    <div class="relative p-4">
+                        <div class="flex flex-col items-center">
+                            <div class="relative mb-12">
+                                <div class="bg-blue-700 text-white rounded-lg font-semibold text-center royal-node">
+                                    明治天皇 (1852-1912)<br/>
+                                    <span class="text-sm">第122代天皇</span>
+                                </div>
+                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-12 bg-gray-400"></div>
+                            </div>
+
+                            <div class="flex justify-center mb-20 relative w-full">
+                                <div class="absolute top-0 left-1/4 right-1/4 h-0.5 bg-gray-400"></div>
+                                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-0.5 h-12 bg-gray-400"></div>
+                                <div class="absolute top-0 left-1/4 w-0.5 h-12 bg-gray-400"></div>
+                                <div class="absolute top-0 left-3/4 w-0.5 h-12 bg-gray-400"></div>
+                                <div class="grid grid-cols-3 gap-x-16 md:gap-x-24 w-full mt-12">
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-amber-100 border border-amber-600 rounded-lg font-medium text-center mb-2 royal-node">
+                                            閑院宮載仁親王<br/><span class="text-sm">(1865-1945)</span>
+                                        </div>
+                                        <div class="text-center text-sm"><span class="bg-gray-200 px-2 py-0.5 rounded">宮家断絶</span></div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-blue-600 text-white rounded-lg font-semibold text-center mb-2 royal-node">
+                                            大正天皇<br/><span class="text-sm">(1879-1926) 第123代天皇</span>
+                                        </div>
+                                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gray-400"></div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-amber-100 border border-amber-600 rounded-lg font-medium text-center mb-2 royal-node">
+                                            伏見宮博明王<br/><span class="text-sm">(1875-1946)</span>
+                                        </div>
+                                        <div class="text-center text-sm"><span class="bg-gray-200 px-2 py-0.5 rounded">宮家断絶</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-center mb-20 relative w-full">
+                                <div class="absolute top-0 left-[8.33%] right-[8.33%] h-0.5 bg-gray-400"></div>
+                                <div class="absolute top-0 left-[16.66%] w-0.5 h-12 bg-gray-400"></div>
+                                <div class="absolute top-0 left-[33.33%] w-0.5 h-12 bg-gray-400"></div>
+                                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-0.5 h-12 bg-gray-400"></div>
+                                <div class="absolute top-0 left-[66.66%] w-0.5 h-12 bg-gray-400"></div>
+                                <div class="absolute top-0 left-[83.33%] w-0.5 h-12 bg-gray-400"></div>
+                                <div class="grid grid-cols-6 gap-x-4 md:gap-x-8 w-full mt-12">
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-amber-100 border border-amber-600 p-2 rounded-lg font-medium text-center text-sm mb-2 royal-node-sm">秩父宮<br/><span class="text-xs">雍仁親王<br/>(1902-1953)</span></div>
+                                        <div class="text-center text-xs"><span class="bg-gray-200 px-1 py-0.5 rounded">宮家断絶</span></div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-blue-600 text-white p-2 rounded-lg font-semibold text-center text-sm mb-2 royal-node-sm">昭和天皇<br/><span class="text-xs">(1901-1989)<br/>第124代天皇</span></div>
+                                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gray-400"></div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-amber-100 border border-amber-600 p-2 rounded-lg font-medium text-center text-sm mb-2 royal-node-sm">高松宮<br/><span class="text-xs">宣仁親王<br/>(1905-1987)</span></div>
+                                        <div class="text-center text-xs"><span class="bg-gray-200 px-1 py-0.5 rounded">宮家断絶</span></div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-amber-100 border border-amber-600 p-2 rounded-lg font-medium text-center text-sm mb-2 royal-node-sm">三笠宮<br/><span class="text-xs">崇仁親王<br/>(1915-2016)</span></div>
+                                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gray-400"></div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-green-100 border border-green-600 p-2 rounded-lg font-medium text-center text-sm mb-2 royal-node-sm">高円宮<br/><span class="text-xs">憲仁親王<br/>(1954-2002)</span></div>
+                                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gray-400"></div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-green-100 border border-green-600 p-2 rounded-lg font-medium text-center text-sm mb-2 royal-node-sm">常陸宮正仁親王<br/><span class="text-xs">(1935-)</span></div>
+                                        <div class="text-center text-xs"><span class="bg-red-100 px-1 py-0.5 rounded text-red-800">後継なし</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-around mb-20 relative w-full">
+                                <div class="absolute top-0 left-[33.33%] transform -translate-x-1/2 w-0.5 h-12 bg-gray-400"></div>
+                                <div class="absolute top-0 left-[66.66%] transform -translate-x-1/2 w-0.5 h-12 bg-gray-400"></div>
+                                <div class="grid grid-cols-3 gap-x-16 md:gap-x-24 w-full mt-12">
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-blue-600 text-white rounded-lg font-semibold text-center mb-2 royal-node">平成天皇<br/><span class="text-sm">明仁<br/>(1933-) 第125代天皇</span></div>
+                                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gray-400"></div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                         <div class="bg-green-100 border border-green-600 rounded-lg font-medium text-center text-sm mb-2 royal-node">常陸宮正仁親王<br/><span class="text-sm">(1935-)</span></div>
+                                        <div class="text-center text-xs"><span class="bg-red-100 px-1 py-0.5 rounded text-red-800">後継なし</span></div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-orange-100 border border-orange-600 rounded-lg font-medium text-center text-sm mb-2 royal-node">三笠宮家<br/><span class="text-xs">彬子女王等</span></div>
+                                        <div class="text-center text-xs"><span class="bg-orange-100 px-1 py-0.5 rounded text-orange-800">女性皇族</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-around relative w-full">
+                                <div class="absolute top-0 left-1/3 transform -translate-x-1/2 w-0.5 h-12 bg-gray-400"></div>
+                                <div class="absolute top-0 left-2/3 transform -translate-x-1/2 w-0.5 h-12 bg-gray-400"></div>
+                                <div class="grid grid-cols-3 gap-x-16 md:gap-x-24 w-full mt-12">
+                                    <div class="flex flex-col items-center relative">
+                                        <div class="bg-blue-600 text-white rounded-lg font-semibold text-center mb-2 royal-node">徳仁天皇<br/><span class="text-sm">(1960-) 第126代天皇</span></div>
+                                        <div class="text-center"><span class="bg-green-100 px-2 py-0.5 rounded text-green-800 font-medium">令和</span></div>
+                                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-12 bg-gray-400"></div>
+                                    </div>
+                                    <div class="flex flex-col items-center relative">
+                                        <div class="bg-green-100 border border-green-600 rounded-lg font-medium text-center mb-2 royal-node">秋篠宮文仁親王<br/><span class="text-sm">(1965-)</span></div>
+                                        <div class="text-center"><span class="bg-blue-100 px-2 py-0.5 rounded text-blue-800 font-medium">皇位継承第1位</span></div>
+                                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-12 bg-gray-400"></div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="bg-orange-100 border border-orange-600 rounded-lg font-medium text-center mb-2 royal-node">黒田清子<br/><span class="text-sm">(1969-) 旧:紀宮清子内親王</span></div>
+                                        <div class="text-center"><span class="bg-gray-200 px-2 py-0.5 rounded">結婚により皇籍離脱</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="w-full mt-12">
+                                <div class="flex justify-start items-start gap-x-4 md:gap-x-6">
+                                    <div class="flex flex-col items-center pt-12">
+                                        <div class="bg-orange-100 border border-orange-600 rounded-lg font-medium text-center mb-2 royal-node">愛子内親王<br/><span class="text-sm">(2001-)</span></div>
+                                        <div class="text-center"><span class="bg-orange-100 px-2 py-0.5 rounded text-orange-800">女性皇族</span></div>
+                                    </div>
+                                    
+                                    <div class="w-8 md:w-12"></div>
+
+                                    <div class="flex flex-col items-center relative">
+                                         <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-[280px] h-0.5 bg-gray-400"></div>
+                                        <div class="absolute top-0 left-[calc(50%_-_55px)] transform -translate-x-1/2 w-0.5 h-6 bg-gray-400"></div>
+                                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-0.5 h-6 bg-gray-400"></div>
+                                        <div class="absolute top-0 left-[calc(50%_+_55px)] transform -translate-x-1/2 w-0.5 h-6 bg-gray-400"></div>
+                                        
+                                        <div class="flex justify-start items-start pt-6 gap-x-2">
+                                            <div class="flex flex-col items-center">
+                                                <div class="bg-gray-200 rounded-lg font-medium text-center mb-2 royal-node">
+                                                    眞子内親王<br/><span class="text-sm">(1991-)</span>
+                                                </div>
+                                                <div class="text-center text-xs"><span class="bg-gray-300 px-1 py-0.5 rounded">結婚により皇籍離脱</span></div>
+                                            </div>
+                                            <div class="flex flex-col items-center">
+                                                <div class="bg-orange-100 border border-orange-600 rounded-lg font-medium text-center mb-2 royal-node">
+                                                    佳子内親王<br/><span class="text-sm">(1994-)</span>
+                                                </div>
+                                                <div class="text-center text-xs"><span class="bg-orange-100 px-1 py-0.5 rounded text-orange-800">女性皇族</span></div>
+                                            </div>
+                                            <div class="flex flex-col items-center">
+                                                <div class="bg-blue-500 text-white rounded-lg font-semibold text-center mb-2 royal-node">
+                                                    悠仁親王<br/><span class="text-sm">(2006-)</span>
+                                                </div>
+                                                <div class="text-center text-xs"><span class="bg-blue-100 px-1 py-0.5 rounded text-blue-800 font-medium">皇位継承第2位</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t pt-4 mt-8">
+                    <div class="flex flex-wrap gap-3">
+                        <div class="flex items-center"><div class="w-4 h-4 bg-blue-600 rounded mr-2"></div><span class="text-sm">天皇・皇太子</span></div>
+                        <div class="flex items-center"><div class="w-4 h-4 bg-green-100 border border-green-600 rounded mr-2"></div><span class="text-sm">現存する男性皇族</span></div>
+                        <div class="flex items-center"><div class="w-4 h-4 bg-orange-100 border border-orange-600 rounded mr-2"></div><span class="text-sm">女性皇族</span></div>
+                        <div class="flex items-center"><div class="w-4 h-4 bg-amber-100 border border-amber-600 rounded mr-2"></div><span class="text-sm">断絶した宮家</span></div>
+                        <div class="flex items-center"><div class="w-4 h-4 bg-gray-300 rounded mr-2"></div><span class="text-sm">皇籍離脱</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">現在の皇族（2025年5月現在）</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border rounded-lg overflow-hidden">
+                        <div class="bg-blue-700 text-white p-3 font-semibold">男性皇族（4名）</div>
+                        <div class="p-4">
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs mr-2 mt-0.5">1</div>
+                                    <div><div class="font-semibold">徳仁天皇</div><div class="text-sm text-gray-600">第126代天皇 (64歳)</div><div class="text-sm text-gray-500">令和天皇</div></div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs mr-2 mt-0.5">2</div>
+                                    <div><div class="font-semibold">文仁親王</div><div class="text-sm text-gray-600">秋篠宮 (58歳)</div><div class="text-sm text-gray-500">皇位継承第1位</div></div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs mr-2 mt-0.5">3</div>
+                                    <div><div class="font-semibold">悠仁親王</div><div class="text-sm text-gray-600">秋篠宮家 (17歳)</div><div class="text-sm text-gray-500">皇位継承第2位</div></div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs mr-2 mt-0.5">4</div>
+                                    <div><div class="font-semibold">正仁親王</div><div class="text-sm text-gray-600">常陸宮 (89歳)</div><div class="text-sm text-gray-500">昭和天皇の弟</div></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg overflow-hidden">
+                        <div class="bg-pink-700 text-white p-3 font-semibold">女性皇族（主要メンバー）</div>
+                        <div class="p-4">
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-pink-600 flex items-center justify-center text-white text-xs mr-2 mt-0.5">1</div>
+                                    <div><div class="font-semibold">雅子皇后</div><div class="text-sm text-gray-600">徳仁天皇の配偶者 (61歳)</div><div class="text-sm text-gray-500">旧：小和田雅子</div></div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-pink-600 flex items-center justify-center text-white text-xs mr-2 mt-0.5">2</div>
+                                    <div><div class="font-semibold">愛子内親王</div><div class="text-sm text-gray-600">天皇家 (23歳)</div><div class="text-sm text-gray-500">徳仁天皇・雅子皇后の長女</div></div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-pink-600 flex items-center justify-center text-white text-xs mr-2 mt-0.5">3</div>
+                                    <div><div class="font-semibold">紀子妃</div><div class="text-sm text-gray-600">秋篠宮文仁親王の配偶者 (58歳)</div><div class="text-sm text-gray-500">旧：川嶋紀子</div></div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-pink-600 flex items-center justify-center text-white text-xs mr-2 mt-0.5">4</div>
+                                    <div><div class="font-semibold">佳子内親王</div><div class="text-sm text-gray-600">秋篠宮家 (29歳)</div><div class="text-sm text-gray-500">秋篠宮文仁親王・紀子妃の次女</div></div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-pink-600 flex items-center justify-center text-white text-xs mr-2 mt-0.5">5</div>
+                                    <div><div class="font-semibold">彬子女王</div><div class="text-sm text-gray-600">三笠宮家 (42歳)</div><div class="text-sm text-gray-500">故・三笠宮崇仁親王の長女</div></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                 <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mt-6">
+                    <h3 class="font-semibold text-lg mb-2">皇族数の課題</h3>
+                    <ul class="space-y-2 pl-5 list-disc">
+                        <li>現在の皇族は男性4名、女性10名程度に減少している。</li>
+                        <li>将来的に女性皇族が結婚により皇籍を離れると、さらに減少する。</li>
+                        <li>皇室の公務や伝統行事の維持が困難になる可能性がある。</li>
+                        <li>皇室会議の運営に必要な皇族数の確保も課題である。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-content-historical" class="tab-content space-y-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">歴史上の女性天皇（8人10代）</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="bg-amber-100">
+                                <th class="text-left p-3 border font-medium">代数</th>
+                                <th class="text-left p-3 border font-medium">天皇名</th>
+                                <th class="text-left p-3 border font-medium">在位期間</th>
+                                <th class="text-left p-3 border font-medium">時代</th>
+                                <th class="text-left p-3 border font-medium">特徴・背景</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-amber-50">
+                                <td class="p-3 border font-medium">第33代</td>
+                                <td class="p-3 border font-semibold text-amber-800">推古天皇</td>
+                                <td class="p-3 border">593-628年</td>
+                                <td class="p-3 border">飛鳥時代</td>
+                                <td class="p-3 border text-xs">初の女性天皇。聖徳太子を摂政とした。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-3 border font-medium">第35代</td>
+                                <td class="p-3 border font-semibold text-amber-800">皇極天皇</td>
+                                <td class="p-3 border">642-645年</td>
+                                <td class="p-3 border">飛鳥時代</td>
+                                <td class="p-3 border text-xs">大化の改新により譲位。後に斉明天皇として重祚。</td>
+                            </tr>
+                            <tr class="bg-amber-50">
+                                <td class="p-3 border font-medium">第37代</td>
+                                <td class="p-3 border font-semibold text-amber-800">斉明天皇</td>
+                                <td class="p-3 border">655-661年</td>
+                                <td class="p-3 border">飛鳥時代</td>
+                                <td class="p-3 border text-xs">皇極天皇の重祚。百済救援を企図。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-3 border font-medium">第41代</td>
+                                <td class="p-3 border font-semibold text-amber-800">持統天皇</td>
+                                <td class="p-3 border">690-697年</td>
+                                <td class="p-3 border">飛鳥時代</td>
+                                <td class="p-3 border text-xs">天武天皇の皇后。藤原京遷都を実現。</td>
+                            </tr>
+                            <tr class="bg-amber-50">
+                                <td class="p-3 border font-medium">第43代</td>
+                                <td class="p-3 border font-semibold text-amber-800">元明天皇</td>
+                                <td class="p-3 border">707-715年</td>
+                                <td class="p-3 border">奈良時代</td>
+                                <td class="p-3 border text-xs">平城京遷都を実施。『古事記』編纂。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-3 border font-medium">第44代</td>
+                                <td class="p-3 border font-semibold text-amber-800">元正天皇</td>
+                                <td class="p-3 border">715-724年</td>
+                                <td class="p-3 border">奈良時代</td>
+                                <td class="p-3 border text-xs">元明天皇の娘。『日本書紀』完成。</td>
+                            </tr>
+                            <tr class="bg-amber-50">
+                                <td class="p-3 border font-medium">第46代</td>
+                                <td class="p-3 border font-semibold text-amber-800">孝謙天皇</td>
+                                <td class="p-3 border">749-758年</td>
+                                <td class="p-3 border">奈良時代</td>
+                                <td class="p-3 border text-xs">聖武天皇の娘。後に称徳天皇として重祚。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-3 border font-medium">第48代</td>
+                                <td class="p-3 border font-semibold text-amber-800">称徳天皇</td>
+                                <td class="p-3 border">764-770年</td>
+                                <td class="p-3 border">奈良時代</td>
+                                <td class="p-3 border text-xs">孝謙天皇の重祚。道鏡との関係で有名。</td>
+                            </tr>
+                            <tr class="bg-amber-50">
+                                <td class="p-3 border font-medium">第109代</td>
+                                <td class="p-3 border font-semibold text-amber-800">明正天皇</td>
+                                <td class="p-3 border">1629-1643年</td>
+                                <td class="p-3 border">江戸時代</td>
+                                <td class="p-3 border text-xs">後水尾天皇の娘。7歳で即位、14年間在位。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-3 border font-medium">第117代</td>
+                                <td class="p-3 border font-semibold text-amber-800">後桜町天皇</td>
+                                <td class="p-3 border">1762-1770年</td>
+                                <td class="p-3 border">江戸時代</td>
+                                <td class="p-3 border text-xs">桜町天皇の娘。最後の女性天皇。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-lg border border-amber-200 mt-6">
+                    <h3 class="font-semibold text-lg mb-2">女性天皇の歴史的意義</h3>
+                    <ul class="space-y-2 pl-5 list-disc">
+                        <li>8人10代の女性天皇が存在し、皇統維持に重要な役割を果たした。</li>
+                        <li>多くは「中継ぎ」的な役割だったが、治世の安定に貢献した。</li>
+                        <li>推古天皇、持統天皇、元明天皇などは特に功績が大きい。</li>
+                        <li>すべて男系であり、女系天皇は存在しなかった。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">主要な皇統の変遷</h2>
+                <div class="space-y-6">
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="font-semibold text-lg text-blue-700">古代（6-8世紀）</h3>
+                        <div class="text-sm text-gray-600 mb-1">主要系統: 天武系、天智系</div>
+                        <p class="text-sm">壬申の乱を経て天武系が優勢となったが、光仁天皇で天智系に復帰した。</p>
+                    </div>
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="font-semibold text-lg text-blue-700">平安時代（9-12世紀）</h3>
+                        <div class="text-sm text-gray-600 mb-1">主要系統: 桓武系</div>
+                        <p class="text-sm">桓武天皇から続く系統が平安時代を通じて継続した。</p>
+                    </div>
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="font-semibold text-lg text-blue-700">鎌倉・室町時代（13-16世紀）</h3>
+                        <div class="text-sm text-gray-600 mb-1">主要系統: 後深草系、亀山系、南朝、北朝</div>
+                        <p class="text-sm">南北朝の分裂を経て、後小松天皇で統一された。</p>
+                    </div>
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="font-semibold text-lg text-blue-700">江戸時代後期（18-19世紀）</h3>
+                        <div class="text-sm text-gray-600 mb-1">主要系統: 閑院宮系</div>
+                        <p class="text-sm">光格天皇（閑院宮出身）から現在の皇統へ繋がる。</p>
+                    </div>
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="font-semibold text-lg text-blue-700">近現代（19-21世紀）</h3>
+                        <div class="text-sm text-gray-600 mb-1">主要系統: 明治系</div>
+                        <p class="text-sm">明治天皇から現在の徳仁天皇まで直系で継承されている。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-content-parliamentary" class="tab-content space-y-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">各政党の立場一覧</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="text-left p-2 border font-medium">政党</th>
+                                <th class="text-left p-2 border font-medium">女性皇族身分保持</th>
+                                <th class="text-left p-2 border font-medium">旧皇族復帰・養子縁組</th>
+                                <th class="text-left p-2 border font-medium">女性/女系天皇</th>
+                                <th class="text-left p-2 border font-medium">その他特徴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-gray-50">
+                                <td class="p-2 border font-medium text-sm">自由民主党</td>
+                                <td class="p-2 border">賛成である。</td>
+                                <td class="p-2 border">有識者会議報告書の考え方を基本的に尊重する。</td>
+                                <td class="p-2 border">悠仁親王以降の継承は今後の課題である。</td>
+                                <td class="p-2 border">速やかな合意とその実行に全力を尽くす。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-2 border font-medium text-sm">立憲民主党</td>
+                                <td class="p-2 border">配偶者・子の身分に憲法上の疑義がある。</td>
+                                <td class="p-2 border">慎重（問題が多い）である。</td>
+                                <td class="p-2 border">女性宮家設立、女系天皇まで視野に入れる。</td>
+                                <td class="p-2 border">有識者会議報告書は附帯決議に応えていない。</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-2 border font-medium text-sm">日本維新の会</td>
+                                <td class="p-2 border">賛成（皇室制度を支える）である。</td>
+                                <td class="p-2 border">第二案を高く評価する。</td>
+                                <td class="p-2 border">別の議論として検討する。</td>
+                                <td class="p-2 border">議論の内容で合意後、法的措置を検討する。</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-2 border font-medium text-sm">日本共産党</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">反対（恣意的運用等の懸念）である。</td>
+                                <td class="p-2 border">女性天皇も女系天皇も認めるべきである。</td>
+                                <td class="p-2 border">憲法の条項と精神に基づいて議論する。</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-2 border font-medium text-sm">れいわ新選組</td>
+                                <td class="p-2 border">配偶者・子の身分に問題点を指摘する。</td>
+                                <td class="p-2 border">反対論に言及する。</td>
+                                <td class="p-2 border">言及なし。</td>
+                                <td class="p-2 border">経済再生や震災復興を優先すべきである。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">主要な議論のポイント</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h3 class="font-semibold text-lg mb-2">共通認識</h3>
+                        <ul class="space-y-2 pl-5 list-disc text-sm">
+                            <li>現在の皇位継承順位は維持する。</li>
+                            <li>皇族数減少は喫緊の課題である。</li>
+                            <li>静謐な環境での議論が必要である。</li>
+                            <li>国民の理解と支持が重要である。</li>
+                        </ul>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                        <h3 class="font-semibold text-lg mb-2">対立点</h3>
+                        <ul class="space-y-2 pl-5 list-disc text-sm">
+                            <li>女性天皇・女系天皇の是非。</li>
+                            <li>旧皇族復帰の範囲と条件。</li>
+                            <li>配偶者・子の法的地位。</li>
+                            <li>議論の優先順位。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-content-public" class="tab-content space-y-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">国民世論の動向</h2>
+                <div class="space-y-6">
+                    <div class="bg-teal-50 p-4 rounded-lg border border-teal-200">
+                        <h3 class="font-semibold text-lg mb-3">天皇制に関する世論</h3>
+                        <p class="text-sm mb-2">近年の報道各社の世論調査では、天皇制を「支持する」または「今のまま維持するのがよい」とする意見が7割から8割台後半と多数を占めている。一方、「廃止する方がよい」または「支持しない」という意見は1割前後となっている。</p>
+                        <ul class="text-xs text-gray-600 space-y-1 pl-5 list-disc">
+                            <li>例：NHK（2023年10月調査）「今のまま維持」72%、「廃止」6%</li>
+                            <li>例：共同通信（2024年4月調査）「支持する」87.1%、「支持しない」9.5%</li>
+                        </ul>
+                         <p class="text-xs text-gray-500 mt-2">※調査方法や時期により数値は変動する。</p>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h3 class="font-semibold text-lg mb-3">皇族数確保策に関する世論</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600 mb-1">約55%</div>
+                                <div class="text-sm">女性皇族の婚姻後の皇族身分保持に賛成</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600 mb-1">約40%</div>
+                                <div class="text-sm">旧皇族の皇籍復帰に賛成</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-purple-600 mb-1">約30%</div>
+                                <div class="text-sm">准皇族制度創設に賛成</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                        <h3 class="font-semibold text-lg mb-3">年代別・性別の傾向（女性天皇容認について）</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-medium mb-2">年代別傾向</h4>
+                                <ul class="space-y-1 text-sm">
+                                    <li><strong>20-30代</strong>: 女性天皇支持が特に高い（約85%）</li>
+                                    <li><strong>40-50代</strong>: バランスの取れた意見（約75%）</li>
+                                    <li><strong>60代以上</strong>: 伝統重視の傾向も一定数（約65%支持）</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-2">性別傾向</h4>
+                                <ul class="space-y-1 text-sm">
+                                    <li><strong>女性</strong>: 女性天皇支持がより高い（約80%）</li>
+                                    <li><strong>男性</strong>: やや慎重な意見も（約70%支持）</li>
+                                    <li><strong>共通点</strong>: 皇室への敬愛は性別を問わず高い</li>
+                                </ul>
+                            </div>
+                        </div>
+                         <p class="text-xs text-gray-500 mt-2">※上記は一般的な傾向であり、調査により詳細は異なる。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">世界の王室制度との比較</h2>
+                <div class="space-y-6">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="text-left p-3 border font-medium">国名</th>
+                                    <th class="text-left p-3 border font-medium">王室名</th>
+                                    <th class="text-left p-3 border font-medium">継承制度</th>
+                                    <th class="text-center p-3 border font-medium">女性君主</th>
+                                    <th class="text-left p-3 border font-medium">特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-gray-50">
+                                    <td class="p-3 border font-medium">イギリス</td>
+                                    <td class="p-3 border">ウィンザー朝</td>
+                                    <td class="p-3 border">絶対長子相続制（2013年改正）</td>
+                                    <td class="p-3 border text-center"><span class="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">可能</span></td>
+                                    <td class="p-3 border text-xs">男女を問わず長子が継承。エリザベス2世が70年在位した。</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="p-3 border font-medium">スウェーデン</td>
+                                    <td class="p-3 border">ベルナドッテ朝</td>
+                                    <td class="p-3 border">絶対長子相続制（1980年改正）</td>
+                                    <td class="p-3 border text-center"><span class="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">可能</span></td>
+                                    <td class="p-3 border text-xs">世界初の男女平等継承制を導入した。</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="p-3 border font-medium">ノルウェー</td>
+                                    <td class="p-3 border">グリュックスブルク朝</td>
+                                    <td class="p-3 border">絶対長子相続制（1990年改正）</td>
+                                    <td class="p-3 border text-center"><span class="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">可能</span></td>
+                                    <td class="p-3 border text-xs">1990年に男女平等継承制を導入した。</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="p-3 border font-medium">オランダ</td>
+                                    <td class="p-3 border">オラニエ＝ナッサウ朝</td>
+                                    <td class="p-3 border">絶対長子相続制</td>
+                                    <td class="p-3 border text-center"><span class="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">可能</span></td>
+                                    <td class="p-3 border text-xs">3代続けて女性君主であった。</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="p-3 border font-medium">日本</td>
+                                    <td class="p-3 border">皇室</td>
+                                    <td class="p-3 border">男系男子限定</td>
+                                    <td class="p-3 border text-center"><span class="px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800">現行上<br/>不可</span></td>
+                                    <td class="p-3 border text-xs">世界で唯一の男系男子限定制度である。</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <h3 class="font-semibold text-lg mb-3">世界的トレンド</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                                    <span>多くの王室が20世紀後半以降に男女平等の継承制度を導入している。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                                    <span>現在、多数の王室で女性が君主または次期君主候補である。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                                    <span>国民の支持と近代的価値観の調和を重視している。</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                            <h3 class="font-semibold text-lg mb-3">日本の特殊性</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                                    <span>世界で唯一の男系男子限定継承制度である。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                                    <span>2000年以上続く世界最古の王朝である。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                                    <span>歴史的に8人10代の女性天皇が存在した。</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2 text-blue-800">今後の展望と課題</h2>
+                <div class="space-y-6">
+                    <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+                        <h3 class="font-semibold text-lg mb-2">国民合意形成の課題</h3>
+                        <ul class="space-y-2 pl-5 list-disc">
+                            <li>多様な価値観を持つ国民の間での合意形成。</li>
+                            <li>伝統的価値観と現代的価値観の調和。</li>
+                            <li>世代間・性別間の意見の違いへの配慮。</li>
+                            <li>十分な情報提供と国民的議論の必要性。</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h3 class="font-semibold text-lg mb-2">制度改革の方向性</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-medium mb-2">短期的対応</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• 女性皇族の婚姻後身分保持</li>
+                                    <li>• 皇族数の確保</li>
+                                    <li>• 皇室公務の継続</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-2">長期的検討</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• 皇位継承制度の見直し</li>
+                                    <li>• 国際的整合性の確保</li>
+                                    <li>• 皇室制度の持続可能性</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center text-gray-500 text-sm mt-8 mb-4">
+        ※この可視化システムは提供された資料に基づき作成されたものであり、2025年5月時点の情報を反映している。
+    </div>
+
+    <script>
+        // JavaScript for Tab Functionality
+        function activateTab(tabId) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                content.style.display = 'none'; // Ensure content is hidden
+            });
+
+            // Deactivate all tab buttons (styling)
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('border-blue-500', 'text-blue-600', 'bg-blue-50');
+                button.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:bg-gray-50');
+            });
+
+            // Show the selected tab content
+            const activeContent = document.getElementById('tab-content-' + tabId);
+            if (activeContent) {
+                activeContent.classList.add('active');
+                activeContent.style.display = 'block'; // Ensure content is shown
+            }
+
+            // Activate the selected tab button (styling)
+            const activeButton = document.getElementById('tab-btn-' + tabId);
+            if (activeButton) {
+                activeButton.classList.add('border-blue-500', 'text-blue-600', 'bg-blue-50');
+                activeButton.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:bg-gray-50');
+            }
+        }
+
+        // Ensure the first tab is active on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            activateTab('overview');
+        });
+    </script>
+
+</body>
+</html>
